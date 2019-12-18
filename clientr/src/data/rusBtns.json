@@ -1,0 +1,24 @@
+
+    {
+        "home": "Главная",
+        "about": "О сайте",
+        "price": "цены",
+        "search": "Поиск",
+        "signin": "Войти",
+        "register": "Зарегистрироваться",
+        "myprofile": "Мой профиль",
+        "myfanfic": "Мои фанфики",
+        "addfanfic":"Добавить фанфик",
+        "signout":"Выход",
+        "firstname": "Имя",
+        "lastname":"Фамилия",
+        "email":"Email адрес",
+        "password":"Пароль",
+        "rememberme":"Запомнить меня",
+        "submit":"Готово",
+        "uploadimage":"Загрузить картинку",
+        "oldpass":"Старый пароль",
+        "newpass":"Новый пароль",
+        "retrypass":"Повторите пароль"
+    }
+  
