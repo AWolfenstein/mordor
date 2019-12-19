@@ -14,6 +14,7 @@ import Profile from './views/Profile';
 import MyFanfic from './views/myFanfic';
 import AddFanfic from './views/addFanfic';
 import AdminPage from './views/adminpage';
+import Read from './views/Read';
 import NotFound from './views/NotFound';
 import enBtns from './data/enBtns';
 import ruBtns from './data/rusBtns';
@@ -75,7 +76,7 @@ class App extends Component {
       }
     })
   
-	}
+  }
 	register(){
     store.dispatch(submitRegister(this.state.details)).then( () => {
       if(this.props.loggedIn === true){
@@ -92,9 +93,11 @@ class App extends Component {
     store.dispatch(logoutUser());
     
     window.location.reload();
+  }	
+ 
 
-  
-	}	
+
+
   changedroptitle(eventkey){
       let title;
       let lang;
@@ -146,6 +149,8 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />
+            <Route path="/read" render={()=><Read username={this.props.username}
+                                                />}  />
             <Route path="/profile" render={()=><Profile  
                                                username={this.props.username}
                                                btns={this.props.changedlang === "en" ? enBtns : ruBtns}

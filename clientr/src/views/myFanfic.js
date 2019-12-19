@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Row,Col,Button } from 'react-bootstrap';
+import React, { Component,useState  } from 'react';
+import { Row,Col,Button,Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {Tablebody}  from '../components/table';
-
+import {DeleteAlert} from '../components/alertdelete';
 class MyFanfic extends Component {
 
 	constructor(){
@@ -37,25 +37,38 @@ class MyFanfic extends Component {
 						dataField: 'udtateAt',
 						text: 'update',
 						sort: true
-					  }]
+					  }],
+					  show:false
 		};
+		this.showmodal=this.showmodal.bind(this);
+		this.closemodal=this.closemodal.bind(this);
 	}
 
 	componentDidMount(){
 		
 	}
-
-	
+	closemodal(){
+		this.setState({
+			show:false
+		})
+	}
+showmodal(){
+	this.setState({
+		show:true
+	})
+}
+	 
 
 	render(){
-
-
+		
 		return (
 			<Row className="ContentRow"> 
             <Col id="content" sm>
             
               <h2>MyFanfic  Page</h2>
-              
+			  <DeleteAlert show={this.state.show}
+			           close={this.closemodal}
+			  />
 			  <Tablebody 
 			  colums={this.state.columns} 
 			  data={this.state.data}
@@ -63,8 +76,7 @@ class MyFanfic extends Component {
 			  <div >
 			  <Button variant="primary" style={{width:"30%"}}>Read</Button>
 			  <Button variant="warning" style={{width:"30%"}}>Edit</Button>
-			
-			  <Button variant="danger" style={{width:"30%"}}  >Delete</Button>
+			  <Button variant="danger" style={{width:"30%"}} onClick={this.showmodal}  >Delete</Button>
 			  </div>
               </Col>
             </Row>

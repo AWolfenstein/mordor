@@ -1,0 +1,32 @@
+#Header{
+    background-color: rgb(214, 60, 33);
+    font-size: 25px;
+}
+#BodyCard{
+    background-color: rgb(14, 97, 97);
+}
+
+#readzone{
+    background-color: rgb(38, 38, 51);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#Author{
+    color:#fcff2a;
+    font-size: 30px;
+    padding-top: 15px;
+    padding-right: 10px;
+
+}
+
+#BodyComments{
+    background-color: rgb(9, 31, 102);
+}
+
+#HeaderComment{
+    background-color: rgb(67, 2, 128);
+}
+#ListComments{
+    color: rgb(38, 38, 51);
+    font-size: 20px;
+}

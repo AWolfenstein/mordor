@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row,Col,Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {Tablebody}  from '../components/table';
+import {DeleteAlert} from '../components/alertdelete';
 class AdminPage extends Component {
 
 	constructor(){
@@ -31,14 +32,27 @@ class AdminPage extends Component {
 						dataField: 'udtateAt',
 						text: 'update',
 						sort: true
-					  }]
+					  }],
+					  show:false
 		};
+		this.showmodal=this.showmodal.bind(this);
+		this.closemodal=this.closemodal.bind(this);
 	}
 
 	componentDidMount(){
 		
 	}
 
+	closemodal(){
+		this.setState({
+			show:false
+		})
+	}
+showmodal(){
+	this.setState({
+		show:true
+	})
+}
 	
 
 	render(){
@@ -46,8 +60,10 @@ class AdminPage extends Component {
 		return (
             <Row className="ContentRow"> 
             <Col id="content" sm>
-            
-              <h2>AdminPage Page</h2>
+			<DeleteAlert show={this.state.show}
+			           close={this.closemodal}
+			  />
+              <h2>Admin Page</h2>
               <Tablebody 
 			  colums={this.state.columns} 
 			  data={this.state.data}
@@ -56,7 +72,7 @@ class AdminPage extends Component {
 			  <Button variant="primary" style={{width:"25%"}}>Ban</Button>  
 			  <Button variant="warning" style={{width:"25%"}}>Edit</Button>
 			  <Button variant="success" style={{width:"25%"}}>Give admin</Button>
-			  <Button variant="danger" style={{width:"25%"}}  >Delete</Button>
+			  <Button variant="danger" style={{width:"25%"}}  onClick={this.showmodal} >Delete</Button>
 			  </div>
               </Col>
             </Row>

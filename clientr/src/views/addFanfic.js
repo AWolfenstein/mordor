@@ -5,7 +5,8 @@ import AsyncSelect from 'react-select/async';
 import CreatableSelect from 'react-select/creatable';
 import { colourOptions } from '../data/dataselect';
 import {colourStyles} from  '../stylesheets/colour';
-
+import SimpleMDEReact from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
 export const filterColors = (inputValue: string) => {
 	return colourOptions.filter(i =>
 	  i.label.toLowerCase().includes(inputValue.toLowerCase())
@@ -20,39 +21,61 @@ export const filterColors = (inputValue: string) => {
 	});
   
 class AddFanfic extends Component {
-
+	
+	
 	constructor(){
 		super();
-
+		let vm= React.createRef();
 		this.state = {
-			inputValue: ''
+			inputValue: '',
+			marktext: '',
+			mobile: false
 		};
-	}
 	
-	  
+	}
+
+	
+	handleMarkEditChange=text=> {
+		this.setState({
+			marktext: text
+		})
+	  }
+
 	componentDidMount(){
+	
+
 		
 	}
+	
+
+		handleMarkEditSave(marktext){
+			console.log('Save', marktext);
+		  }
+		
+
 	handleInputChange = (newValue) => {
 		const inputValue = newValue.value;
 		console.log(newValue.value);
 		this.setState({ inputValue });
 		return inputValue;
 	  };
+
 	handleChange = (newValue, actionMeta: any) => {
 		console.group('Value Changed');
+		if(newValue != null){
 		for(let i=0;i<newValue.length;i++){
 			console.log(newValue[i].value);
 		}
 		
 		console.log(`action: ${actionMeta.action}`);
 		console.groupEnd();
+	}
 	  };
 	
 
 	render(){
 		
-	
+	const{marktext,mobile} =this.state;
 const body=(
 	<Row>  
         <Col  sm></Col> 
@@ -83,9 +106,14 @@ const body=(
 		<label>intro</label>
 		<Form.Control as="textarea" rows="3" />
 	</div>
-	<div className="form-group" >
+	<div className="form-group"  style={{ width: "100%"}} >
 		<label>Body</label>
-		<Form.Control as="textarea" rows="4" />
+		<SimpleMDEReact
+          className={""}
+          value={this.state.marktext}
+          onChange={this.handleMarkEditChange}
+        />
+
 	</div>
 	<button   className="btn btn-primary btn-block">submit</button>
 	<p></p>
