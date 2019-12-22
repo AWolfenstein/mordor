@@ -26,7 +26,7 @@ const navDropdownUserTitle = ( <span>{username} <Image src={useravatar} style={{
           <Nav.Link href="/about">{btns.about}</Nav.Link>
           </NavItem>
           <NavItem>
-          <Nav.Link href="#pricing">{btns.price}</Nav.Link>
+          <Nav.Link href="/admin">{btns.price}</Nav.Link>
           </NavItem>
         </Nav>
         <NavDropdown title={dropdownTitle} id="basic-nav-dropdown" onSelect={handleChange}>
@@ -48,9 +48,9 @@ const navDropdownUserTitle = ( <span>{username} <Image src={useravatar} style={{
          <div id="Authorize" hidden={autcheck===true ? false : true}>
         
          <NavDropdown  title={navDropdownUserTitle}  id="basic-nav-dropdown" >
-    <NavDropdown.Item  href="/profile" >{btns.myprofile}</NavDropdown.Item>
-        <NavDropdown.Item href="/myfanfics">{btns.myfanfic}</NavDropdown.Item>
-        <NavDropdown.Item  href="/addfanfics" >{btns.addfanfic}</NavDropdown.Item>
+    <NavDropdown.Item  href={`/profile/${localStorage.getItem('email') || null}`} >{btns.myprofile}</NavDropdown.Item>
+        <NavDropdown.Item href={`/myfanfics/${localStorage.getItem('email') || null}`}>{btns.myfanfic}</NavDropdown.Item>
+        <NavDropdown.Item  href={`/addfanfics/${localStorage.getItem('email') || null}/newfanfic`} >{btns.addfanfic}</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item href="" onClick={handlelogout}>{btns.signout}</NavDropdown.Item>
       </NavDropdown>

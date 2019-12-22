@@ -9,20 +9,15 @@ class MyFanfic extends Component {
 		super();
 
 		this.state = {
-			data:[{id:'1',name:'name',likes:'2',udtateAt:'2019-12-11T21:20:59.453+00:00',createAt:'2019-12-11T21:20:59.453+00:00'},
-			{id:'2',name:'namffe',likes:'2',udtateAt:'2019-12-11T21:20:59.453+00:00',createAt:'2019-12-11T21:20:59.453+00:00'},
-			{id:'3',name:'nee',likes:'2',udtateAt:'2019-12-11T21:20:59.453+00:00',createAt:'2019-12-11T21:20:59.453+00:00'},
-			{id:'4',name:'namwfwe',likes:'2',udtateAt:'2019-12-11T21:20:59.453+00:00',createAt:'2019-12-11T21:20:59.453+00:00'},
-			{id:'5',name:'namewfw',likes:'2',udtateAt:'2019-12-11T21:20:59.453+00:00',createAt:'2019-12-11T21:20:59.453+00:00'},
-			{id:'6',name:'namewfw',likes:'2',udtateAt:'2019-12-11T21:20:59.453+00:00',createAt:'2019-12-11T21:20:59.453+00:00'},
-			{id:'7',name:'namwewfwe',likes:'2',udtateAt:'2019-12-11T21:20:59.453+00:00',createAt:'2019-12-11T21:20:59.453+00:00'}],
+			data:[{id:'1',title:'name',likes:'2',udtateAt:'2019-12-11T21:20:59.453+00:00',createAt:'2019-12-11T21:20:59.453+00:00'},
+			],
 					
 					columns:[{
 						dataField: 'id',
 						text: 'ID',
 						sort: true
 					  }, {
-						dataField: 'name',
+						dataField: 'title',
 						text: 'Name',
 						sort: true
 					  }, {
@@ -74,8 +69,8 @@ showmodal(){
 			  data={this.state.data}
 			  />
 			  <div >
-			  <Button variant="primary" style={{width:"30%"}}>Read</Button>
-			  <Button variant="warning" style={{width:"30%"}}>Edit</Button>
+			  <Button variant="primary" style={{width:"30%"}} href="/read">Read</Button>
+			  <Button variant="warning" style={{width:"30%"}} href={`/addfanfics/${localStorage.getItem('email') || null}/gtthtytjtju`}>Edit</Button>
 			  <Button variant="danger" style={{width:"30%"}} onClick={this.showmodal}  >Delete</Button>
 			  </div>
               </Col>

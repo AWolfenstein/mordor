@@ -149,18 +149,12 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />
-            <Route path="/read" render={()=><Read username={this.props.username}
-                                                />}  />
-            <Route path="/profile" render={()=><Profile  
-                                               username={this.props.username}
-                                               btns={this.props.changedlang === "en" ? enBtns : ruBtns}
-                                               />}  />
+            <Route path="/read/:id" component={Read} />
+            <Route path="/profile/:email" component={Profile} />
             <Route path="/admin" render={()=><AdminPage  
                                                 />}  />
-            <Route path="/myfanfics" render={()=><MyFanfic  
-                                                />}  />
-            <Route path="/addfanfics" render={()=><AddFanfic  
-                                                />}  />
+            <Route path="/myfanfics/:email" component={MyFanfic} />
+            <Route path="/addfanfics/:email/:id"component={AddFanfic}  />
                                                                                       
             <Route path="/sign-in" render={()=><SignInModalForm  
                                                                   btns={this.props.changedlang === "en" ? enBtns : ruBtns}

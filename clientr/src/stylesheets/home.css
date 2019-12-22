@@ -1,0 +1,60 @@
+.Mordor{
+    font-size: 45px;
+    color: magenta;
+}
+.Mordor.text{
+    font-size: 30px;
+    color: rgb(255, 38, 0);
+}
+#three{
+    color: rgb(255, 233, 32);
+    font-size: 25px;
+}
+#threet{
+    color: rgb(255, 176, 6);
+}
+#threee{
+    color: rgb(72, 255, 0);
+    font-size: 25px;
+}
+#threext{
+    color: rgb(17, 247, 208);
+}
+
+#two{
+    color: rgb(0, 89, 255);
+    
+}
+#twot{
+    color: rgb(155, 6, 255);
+    font-size: 25px;
+}
+#twoe{
+    color: rgb(255, 0, 212);
+    
+}
+#twoxt{
+    color: rgb(247, 17, 17);
+    font-size: 25px;
+}
+#borderLine{
+    border:2px;
+    border-style: ridge;
+    border-color: #ff00d2;
+}
+.ListLinks{
+    background-color: transparent!important;
+    color: rgb(247, 17, 17)!important;
+}
+#BodyCards{
+    background-color:rgb(12, 9, 16);
+}
+.Listitem{background-color:rgb(12, 9, 16)!important;}
+
+.size {
+    white-space: pre-wrap; /* Отменяем перенос текста */
+    overflow: hidden; /* Обрезаем содержимое */
+    padding: 5px; /* Поля */
+    text-overflow: ellipsis; /* Многоточие */
+   }
+ 

@@ -29,8 +29,7 @@ module.exports = {
             };
             var authToken = jwt.sign(payload, SECRET_KEY);
             console.log("User:");
-            console.log(authToken);
-            console.log("--------------------");
+         
             callback(null, authToken);
           } else {
             callback(err, null);
@@ -84,8 +83,7 @@ module.exports = {
                   };
                   var authToken = jwt.sign(payload, SECRET_KEY);
                   console.log("User Udated:");
-                  console.log(authToken);
-                  console.log("--------------------");
+         
                   callback(null, authToken);
                 }
               );

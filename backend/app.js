@@ -1,15 +1,17 @@
 const express = require('express');
 const routes = require('./routes/index');
-//const newsRoute = require('./routes/news');
 const authRoute = require('./routes/auth');
-
+const addfanficRoute =require('./routes/addfanficRoute');
+const myfanficRoute =require('./routes/myfanficRoute');
+const readRoute=require('./routes/readRoute');
+const homeRoute =require('./routes/homeRoute');
 const cors = require('cors');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const authCheckMiddleware = require('./middleware/authCheck');
-
+const Category = require("./models/Category");
 
 require('dotenv').config();
 
@@ -26,7 +28,8 @@ mongoose.connect(dbURL, function(err){
     console.log('Connected to: '+ dbURL)
   }
 })
-
+//let newvalue = new Category({"ids":"CategoryBase","category":["Anime_and_manga","Books","Cartoons","Games","Films_and_TV_shows","Comics","Other"]});
+//newvalue.save();
 app.use(cors());
 app.options('*', cors());
 
@@ -37,12 +40,14 @@ app.use('/', routes);
 
 app.use('/user', authRoute);
 
-//app.use('/news/:id/comment', authCheckMiddleware);
-//app.use('/news', newsRoute);
-// error handlers
 
-// development error handler
-// will print stacktrace
+app.use('/addfanfic', addfanficRoute);
+app.use('/home',homeRoute)
+
+
+app.use('/read/:id/newcomment', authCheckMiddleware);
+app.use('/read',readRoute)
+app.use('/myfanfics',myfanficRoute)
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);

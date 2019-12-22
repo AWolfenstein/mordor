@@ -10,7 +10,11 @@ const UserSchema = new mongoose.Schema({
     },
     fname: String,
     lname:String,
-	password: String
+	password: String,
+	admin: Boolean,
+	banstatus: Boolean,
+	img:String
+
 
 }, {
     timestamps: {
