@@ -51,10 +51,11 @@
 }
 .Listitem{background-color:rgb(12, 9, 16)!important;}
 
-.size {
-    white-space: pre-wrap; /* Отменяем перенос текста */
-    overflow: hidden; /* Обрезаем содержимое */
-    padding: 5px; /* Поля */
-    text-overflow: ellipsis; /* Многоточие */
-   }
+.truncate {
+    width: 250px;
+    height: 100px;
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
  

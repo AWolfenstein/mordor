@@ -45,7 +45,9 @@ class Profile extends Component {
 		});
 	}
   submitComment(){
-		store.dispatch(submitComment(this.props.match.params.id, {email:this.props.username ,comment: this.state.comment}));	
+		store.dispatch(submitComment(this.props.match.params.id, {email:this.props.username ,comment: this.state.comment})).then(()=>{
+      store.dispatch(loadComments(this.props.match.params.id))
+    })	
 
 		this.setState({
 			comment: ''

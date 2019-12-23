@@ -131,11 +131,11 @@ class AddFanfic extends Component {
 	
 	createfanfic(){
 
-		store.dispatch(createFanfic(this.state.details));
+		store.dispatch(createFanfic(this.state.details)).then(()=> {this.props.history.push(`/myfanfics/${this.props.match.params.email}`)})
 	}
 	udpdatefanfic(){
 
-		store.dispatch(editedFanfic(this.props.match.params.id,this.state.details));
+		store.dispatch(editedFanfic(this.props.match.params.id,this.state.details)).then(()=> {this.props.history.push(`/myfanfics/${this.props.match.params.email}`)})
 	}
 
 	
@@ -169,14 +169,14 @@ const body=(
          <Col  sm={10}>
 	<div className="form-group" >
 <label>{btns.title}</label>
-		<input value={this.state.page=== 1 ?this.state.details.title:''} onChange={(event)=>{this.updateDetails(event);}} type="text" className="form-control" placeholder="Enter Title" id="title" />
+		<input value={ this.state.details.title } onChange={(event)=>{this.updateDetails(event);}} type="text" className="form-control" placeholder="Enter Title" id="title" />
 	</div>
 	<div className="form-group">
 		<label>{btns.category}:</label>
 		<AsyncSelect
           loadOptions={promiseOptions}
 		  defaultOptions
-		  value={this.state.page=== 1 ?{ value:this.state.details.category,label:this.state.details.category}:''}
+		  value={{ value:this.state.details.category,label:this.state.details.category}}
 		 onChange={this.handleInputChange}
 		  styles={colourStyles}
         />
@@ -187,7 +187,7 @@ const body=(
 		isMulti
         cacheOptions
 		defaultOptions
-		value={this.state.page=== 1 ?this.state.details.tags.map((tag)=>{return{ value:tag,label:tag}}):''}
+		value={this.state.details.tags.map((tag)=>{return{ value:tag,label:tag}})}
 		onChange={this.handleChange}
 		loadOptions={promiseOptions2}
 		styles={colourStyles}
@@ -196,7 +196,7 @@ const body=(
 	</div>
 	<div className="form-group" >
 		<label>{btns.description}:</label>
-		<Form.Control value={this.state.page=== 1 ?this.state.details.description:''} onChange={(event)=>{this.updateDetails(event);}} id="description" as="textarea" rows="3" />
+		<Form.Control value={this.state.details.description} onChange={(event)=>{this.updateDetails(event);}} id="description" as="textarea" rows="3" />
 	</div>
 	<div className="form-group"  style={{ width: "100%"}} >
 		<label>{btns.text}:</label>

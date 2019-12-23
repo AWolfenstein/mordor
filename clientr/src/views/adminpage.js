@@ -55,16 +55,19 @@ class AdminPage extends Component {
 		const admin = localStorage.getItem('admin')
 		const banstatus = localStorage.getItem('banstatus')
 	
-		if  (admin === "true" &&admin !== null ) {
+		if  (admin === "true"  ) {
 	
-		} else if  (banstatus === "false") {
+		} else{
+			this.props.history.push("/");
+		}
+		if  (banstatus === "false") {
 	
 		}
 		else{
 			this.props.history.push("/");
 		}
 	  }
-	componentDidMount(){
+	componentWillMount(){
 		this.checkLoginAndAdmin()
 	console.log(this.props)
 		store.dispatch(loadAllUsers()).then(()=>{

@@ -80,7 +80,7 @@ const fanfics=(
     <Card.Img variant="top" src={useravatar} style={{ width: "345px", height:"160px" }}  />
     <Card.Body>
       <Card.Title>{fanfic.title}</Card.Title>
-      <Card.Text className="size" style={{ wordBreak: "break-word" }}>
+      <Card.Text className="truncate" >
       {fanfic.description}
       </Card.Text>
     </Card.Body>

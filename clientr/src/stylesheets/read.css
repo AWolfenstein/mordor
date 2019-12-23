@@ -9,7 +9,8 @@
 #readzone{
     background-color: rgb(38, 38, 51);
     font-family: Georgia, 'Times New Roman', Times, serif;
-   
+   overflow: scroll;
+   max-height: 600px;
 }
 
 #Author{
