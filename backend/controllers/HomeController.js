@@ -19,7 +19,7 @@ getHomeFanfic:function(callback){
             callback(err, null);
             return;
           }
-        console.log('fanficNEw', resultFanfics);
+       
         callback(null, resultFanfics );
         })
         if (err) {
@@ -28,7 +28,34 @@ getHomeFanfic:function(callback){
         }
        
       }); 
-    }
+    },
+    loadCategory:function(category,callback){
+  
+      Fanfic.find( {category:category}, function(err, fanfics ) {
+          let resultFanfics = [];
+          User.find(  function(err,users) {
+          fanfics.forEach(fanfic => {
+              var currentUser = {};
+               currentUser = users.find(user => { return user.email == fanfic.email });
+              if(currentUser  != undefined){
+                  let fanficNEw = { ...fanfic._doc, author: currentUser.lname + " " + currentUser.fname };
+                  resultFanfics.push(fanficNEw);
+              }
+          });
+          if (err) {
+              callback(err, null);
+              return;
+            }
+            console.log('fanficNEw', resultFanfics);
+          callback(null, resultFanfics );
+          })
+          if (err) {
+            callback(err, null);
+            return;
+          }
+         
+        }); 
+      }
 
 
 }

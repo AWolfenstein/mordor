@@ -2,7 +2,7 @@
     {
         "home": "Главная",
         "about": "О сайте",
-        "price": "цены",
+        "price": "Админ",
         "search": "Поиск",
         "signin": "Войти",
         "register": "Зарегистрироваться",
@@ -19,6 +19,31 @@
         "uploadimage":"Загрузить картинку",
         "oldpass":"Старый пароль",
         "newpass":"Новый пароль",
-        "retrypass":"Повторите пароль"
+        "retrypass":"Повторите пароль",
+        "categories":"Категории",
+        "category":"Категория",
+        "categorymas":[{ 
+          "Anime_and_manga":"Аниме и Манга",
+          "Books":"Книги",
+          "Cartoons":"Мультики",
+          "Games":"Игры",
+          "Films_and_TV_shows":"Фильмы и Сериалы",
+        "Comics":"Комиксы",
+        "Other":"Другое"
+        }
+        ],
+        "tags":"Тэги",
+        "read":"Читать",
+        "author":"Автор",
+        "description":"Описание",
+        "comments":"Коментарии",
+        "Comment":"Прокоментируйте",
+        "noComment":"Тут ничего нет ещё" ,
+        "title":"Название",
+        "text":"Текст",
+        "editfanfic":"Изменить Фанфик",
+        "edit":"Изменить",
+        "delete":"Удалить"
+       
     }
   

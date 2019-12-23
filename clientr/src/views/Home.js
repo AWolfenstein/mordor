@@ -5,7 +5,11 @@ import Ticker from 'react-ticker'
 import '../stylesheets/home.css'
 import useravatar from '../img/useravatar.jpg';
 import store from '../store';
-import { loadFanfics} from '../actions/HomeAction';
+import { loadFanfics,loadCategoryFanfics} from '../actions/HomeAction';
+import { loadTags} from '../actions/addFanficActions';
+import enBtns from '../data/enBtns';
+import ruBtns from '../data/rusBtns';
+let  btns=[];
 class Home  extends Component {
 
 	constructor(){
@@ -18,13 +22,16 @@ class Home  extends Component {
 	}
 
 	componentWillMount(){
-    store.dispatch(loadFanfics())
+   
+    store.dispatch(loadFanfics()).then(()=>{
+    store.dispatch(loadTags())})
+   
 	}
 
 	
 
 	render(){
-  
+   btns= this.props.changedlang === "en" ? enBtns : ruBtns 
     const head=(
       <div>
            <Ticker direction="toRight"  speed={20}>
@@ -58,15 +65,13 @@ class Home  extends Component {
     );
 const Categories =(
   <div>
-    <h3>Categories:</h3>
+    <h3>{btns.categories}:</h3>
     <ListGroup variant="flush" >
-  <ListGroup.Item action href="#link1" className="ListLinks">Аниме и манга</ListGroup.Item>
-  <ListGroup.Item action href="#link2"className="ListLinks">Книги</ListGroup.Item>
-  <ListGroup.Item action href="#link3" className="ListLinks">Мультфильмы</ListGroup.Item>
-  <ListGroup.Item action href="#link4" className="ListLinks">Фильмы и сериалы</ListGroup.Item>
-  <ListGroup.Item action href="#lin5" className="ListLinks">Комиксы</ListGroup.Item>
-  <ListGroup.Item action href="#link6" className="ListLinks">Другое</ListGroup.Item>
-</ListGroup>
+    { this.props.category && this.props.category.map((cat, index) => { return(
+    <ListGroup.Item key={index} action  onClick={()=>{store.dispatch(loadCategoryFanfics(cat))}} className="ListLinks">{cat}</ListGroup.Item>
+    )}
+    )}
+  </ListGroup>
   </div>
 )
 const fanfics=(
@@ -80,12 +85,12 @@ const fanfics=(
       </Card.Text>
     </Card.Body>
     <ListGroup  className="list-group-flush"  >
-    <ListGroupItem className="Listitem">{`Author: ${fanfic.author}`}</ListGroupItem>
-    <ListGroupItem className="Listitem">{`Category:  ${fanfic.category}`}</ListGroupItem>
-<ListGroupItem className="Listitem" >Tags: { fanfic.tags.map((tag, index) => {return(<Badge key={index} style={{ marginLeft: "10px" }} variant="info">{tag} </Badge> );} ) }</ListGroupItem>
+    <ListGroupItem className="Listitem">{`${btns.author}: ${fanfic.author}`}</ListGroupItem>
+    <ListGroupItem className="Listitem">{`${btns.category}:  ${fanfic.category}`}</ListGroupItem>
+<ListGroupItem className="Listitem" >{btns.tags}: { fanfic.tags.map((tag, index) => {return(<Badge key={index} style={{ marginLeft: "10px" }} variant="info">{tag} </Badge> );} ) }</ListGroupItem>
   </ListGroup>
   <Card.Body>
-    <Card.Link href={`/read/${fanfic._id}`}>Read</Card.Link>
+    <Card.Link href={`/read/${fanfic._id}`}>{btns.read}</Card.Link>
   </Card.Body>
   </Card>);
  })
@@ -110,8 +115,11 @@ const fanfics=(
 }
 
 const mapStateToProps = state => {
+ 
 	return {
-  fanfics: state.homedata.fanfics
+  fanfics: state.homedata.fanfics,
+  category: state.addfanfic.categories,
+  changedlang: state.changelanguge.lang,
 	}
 }
 

@@ -2,12 +2,13 @@ const Fanfic = require("../models/Fanfic");
 
 module.exports = { 
 
-    loadAllFanfics: function(uemail,callback){
-        Fanfic.find({email: uemail},  function(err, result ) {
+    loadAllFanfics: function(email,callback){
+        Fanfic.find({email: email},  function(err, result ) {
             if (err) {
               callback(err, null);
               return;
             }
+            
             callback(null, result );
           }); 
         },

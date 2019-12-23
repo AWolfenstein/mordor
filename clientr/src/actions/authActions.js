@@ -48,6 +48,8 @@ export function submitLogin(data){
 			.then( (data) => {
 		
 				localStorage.setItem('email', data.data.email);
+				localStorage.setItem('banstatus', data.data.banstatus);
+				localStorage.setItem('admin', data.data.admin);
 				localStorage.setItem('fname', data.data.fname);
 				localStorage.setItem('lname', data.data.lname);
 				localStorage.setItem('token', data.data.tokenID);
@@ -80,6 +82,8 @@ export function submitRegister(data){
 
 				localStorage.setItem('email', data.data.email);
 				localStorage.setItem('fname', data.data.fname);
+				localStorage.setItem('banstatus', data.data.banstatus);
+				localStorage.setItem('admin', data.data.admin);
 				localStorage.setItem('lname', data.data.lname);
 				localStorage.setItem('token', data.data.tokenID);
 
@@ -95,6 +99,8 @@ export function logoutUser() {
 		localStorage.removeItem('token');
 		localStorage.removeItem('fname');
 		localStorage.removeItem('lname');
+		localStorage.removeItem('admin');
+		localStorage.removeItem('banstatus');
 		dispatch(logout());
 	}
 }

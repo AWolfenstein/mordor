@@ -8,6 +8,9 @@ import store from '../store';
 import { loadFanficToRead ,submitComment,loadComments} from '../actions/readActions';
 import MarkdownRenderer from 'react-markdown-renderer';
 import '../stylesheets/read.css';
+import enBtns from '../data/enBtns';
+import ruBtns from '../data/rusBtns';
+let  btns=[];
 var backimageStyle = {
     
     backgroundImage: `url(${Background})`
@@ -20,10 +23,18 @@ class Profile extends Component {
 		this.state = {
 			comment: ''
 		};
-	}
+  }
+  checkLoginAndAdmin() {
+		const banstatus = localStorage.getItem('banstatus')
+		if  (banstatus === "false" ) {
+		}
+		else{
+			this.props.history.push("/");
+		}
+	  }
 
 	UNSAFE_componentWillMount(){
-    
+    this.checkLoginAndAdmin()
     store.dispatch(loadFanficToRead({id:this.props.match.params.id}))
     store.dispatch(loadComments(this.props.match.params.id))
   }
@@ -41,14 +52,14 @@ class Profile extends Component {
 		});		
 	}
 	render(){
-        const markdown = '1. [Глава 1](ddd)         \n   1.1 [Единорог](http://localhost:3000/read/#Единорог)      \n /n  ddddddddddddddddddddddddddd /n    \n     \ ';
+    btns= this.props.changedlang === "en" ? enBtns : ruBtns 
         const UserImage = ( <Image src={useravatar} style={{ width: "80px", height:"80px" }} roundedCircle /> );
         const Author = (
             
             <Row className="Profile head "  style={backimageStyle}>
                 
                 <Col className="Profile head  " >
-                <div id="Author">Autor:</div> 
+                <div id="Author">{btns.author}:</div> 
                 <p></p>
                     {UserImage}
                     <div className="Profile head username"> {this.props.fanficread && (this.props.fanficread.lenght>0) ? "Null" : this.props.fanficread &&this.props.fanficread[0].author} </div>
@@ -75,17 +86,17 @@ const intro=(
   <Card.Body id="BodyCard">
      <Row>
          <Col sm={5}>
-    <Card.Title>Category:</Card.Title>
+    <Card.Title>{btns.category}:</Card.Title>
     <Card.Text>
     { fanfic.category}
     </Card.Text>
-    <Card.Title>Tags:</Card.Title>
+    <Card.Title>{btns.tags}:</Card.Title>
     <Card.Text>
     { fanfic.tags.map((tag, index) => {return(<Badge key={index} style={{ marginLeft: "5px",fontSize:"15px" }} variant="dark">{tag} </Badge> );} ) }
     </Card.Text>
     </Col>
     <Col sm={7}>
-    <Card.Title>Description:</Card.Title>
+    <Card.Title>{btns.description}:</Card.Title>
     <Card.Text style={{ wordBreak: "break-word" }}> 
     { fanfic.description}
     </Card.Text>
@@ -105,7 +116,7 @@ const readdiv=(
 const comments =(
 <Card body id="BodyComments">
 <Card>
-  <Card.Header id="HeaderComment">Comment Now</Card.Header>
+  <Card.Header id="HeaderComment">{btns.Comment}</Card.Header>
   <Card.Body>
   <InputGroup className="mb-3">
     <FormControl
@@ -116,20 +127,20 @@ const comments =(
       aria-describedby="basic-addon2"
     />
     <InputGroup.Append>
-      <Button variant="outline-secondary" onClick={this.submitComment.bind(this)} >Send</Button>
+      <Button variant="outline-secondary" onClick={this.submitComment.bind(this)} >{btns.submit}</Button>
     </InputGroup.Append>
   </InputGroup>
   </Card.Body>
 </Card>
 <p></p>
 <Card >
-  <Card.Header id="HeaderComment">Comments</Card.Header>
+  <Card.Header id="HeaderComment">{btns.comments}</Card.Header>
   <ListGroup variant="flush" id="ListComments">
   {this.props.comments && (this.props.comments.length > 0  ) ? this.props.comments && this.props.comments.map((comment, index) => {
      return( 
      <ListGroup.Item key={index }>{comment.author +" : "}{comment.comment} </ListGroup.Item>
     );
-}) : <ListGroup.Item > No Comments </ListGroup.Item>
+}) : <ListGroup.Item >{btns.noComment} </ListGroup.Item>
 }
   </ListGroup>
 </Card>
@@ -157,7 +168,8 @@ const mapStateToProps = state => {
 	return {
      fanficread: state.readpage.fanfics,
      comments: state.readpage.comments,
-     username: state.readpage.username
+     username: state.readpage.username,
+     changedlang: state.changelanguge.lang,
 	}
 }
 

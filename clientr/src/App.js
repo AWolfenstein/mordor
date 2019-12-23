@@ -26,6 +26,7 @@ import { defaultFunction } from './actions';
 import { changelangFunction } from './actions/changelang';
 import { submitRegister,submitLogin,logoutUser} from './actions/authActions';
 export const history = createBrowserHistory();
+
 class App extends Component {
   constructor(props) {
     
@@ -120,21 +121,24 @@ class App extends Component {
             console.log(store.getState().changelanguge);
             }
   }
+
+
   componentWillMount() {
+
+    console.log("param",this.props)
     this.checkloggedin();
     
- 
+
 
 
   }
+ // onEnter={this.checkLoginAndAdmin()}
 
   render() {
-    if (this.props.changedlang === null||this.props.changedlang === "") {
-     this.props.history.push('/')
-    }
-
+ 
     return (
       <React.Fragment>
+        
       <Router history={history}>
         <Navigationbar 
           dropdownTitle={this.props.changedTittlelang}
@@ -146,17 +150,18 @@ class App extends Component {
         />
         <div className="app">
         <Layout>
+        
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/read/:id" component={Read} />
             <Route path="/profile/:email" component={Profile} />
-            <Route path="/admin" render={()=><AdminPage  
-                                                />}  />
-            <Route path="/myfanfics/:email" component={MyFanfic} />
+            <Route path="/admin" component={AdminPage}  />
+            <Route path="/myfanfics/:email" component={MyFanfic}  />
             <Route path="/addfanfics/:email/:id"component={AddFanfic}  />
                                                                                       
-            <Route path="/sign-in" render={()=><SignInModalForm  
+            <Route path="/sign-in" render={(props)=><SignInModalForm
+                                                                  {...props}  
                                                                   btns={this.props.changedlang === "en" ? enBtns : ruBtns}
                                                                   updateDetails={this.updateDetails}
                                                                   login={this.login}

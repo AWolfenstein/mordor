@@ -2,7 +2,7 @@
     {
       "home": "Home",
       "about": "About",
-     "price": "price",
+     "price": "Admin",
       "search": "Search",
       "signin": "Sign in",
       "register": "Register",
@@ -19,6 +19,30 @@
       "uploadimage":"Upload Image",
       "oldpass":"Old Password",
       "newpass":"New Password",
-      "retrypass":"Retry Pasword"
+      "retrypass":"Retry Pasword",
+      "categories":"Categories",
+      "category":"Category",
+      "categorymas":[{ 
+        "Anime_and_manga":"Anime and manga",
+        "Books":"Books",
+        "Cartoons":"Cartoons",
+        "Games":"Games",
+        "Films_and_TV_shows":"Films and TV shows",
+      "Comics":"Comics",
+      "Other":"Other"
+      }
+      ],
+      "tags":"Tags",
+      "read":"Read",
+      "author":"Author",
+      "description":"Description",
+      "comments":"Comments",
+        "Comment":"Comment Now",
+        "noComment":"No Comments" ,
+        "title":"Title",
+        "text":"Text",
+        "editfanfic":"Edit Fanfic",
+        "edit":"Edit",
+        "delete":"Delete"
     }
   

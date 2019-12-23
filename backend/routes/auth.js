@@ -26,13 +26,17 @@ router.post("/:email", function(req, res, next) {
         } else {
           llname = user.lname;
           ffname = user.fname;
+          var admin = user.admin;
+          var  banstatus =user.banstatus;
           res.status(200).json({
             success: 1,
             data: {
               tokenID: result,
               email: req.body.email,
               fname: ffname,
-              lname: llname
+              lname: llname,
+              admin: admin,
+              banstatus: banstatus
             }
           });
         }

@@ -36,5 +36,24 @@ router.get("/", function(req, res, next) {
     });
   });
 
-  
+  router.get('/:category', function(req, res, next) {
+	const category = req.params.category;
+ 
+	HomeController.loadCategory(category, function(err, result){
+		if(err){  
+			console.log(err);
+			res.json({
+				success: 0,
+				error: err
+			})
+			return;
+		}
+
+		res.json({
+			success: 1,
+			data: result
+		});
+	});
+
+});
   module.exports = router;

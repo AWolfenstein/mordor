@@ -1,13 +1,14 @@
 import React from "react";
 import {Row,Col } from 'react-bootstrap';
 
- const SignInModalForm =({updateDetails,login,btns})=>{
+ const SignInModalForm =({updateDetails,login,btns, match})=>{
     function handleupdateDetails (event){
         updateDetails(event);
       }
       function handlelogin (){
         login();
       }
+      console.log(match)
         return ( <Row className="AuthRow">
         <Col sm></Col>
         <Col  sm  className="ContentRow">

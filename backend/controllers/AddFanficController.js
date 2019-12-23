@@ -32,5 +32,29 @@ loadtags: function(callback){
       }
       callback(null, result );
     }); 
-  }
+  },
+  loadFanficToEdit: function(id,callback){
+    Fanfic.findOne({_id:id},  function(err, result ) {
+        if (err) {
+          callback(err, null);
+          return;
+        }
+        callback(null, result );
+      }); 
+    },
+    updateFanfic:function(id,title,category,tags,description,fantext, callback){
+      Fanfic.updateOne({_id:id},{title:title,category:category,$addToSet:{tags:tags},description:description,fantext:fantext},{upsert: false},  function(err, result ) {
+        if (err) {
+          callback(err, null);
+          return;
+        }
+        callback(null, result );
+      }); 
+
+
+
+    }
+
+
+
 }

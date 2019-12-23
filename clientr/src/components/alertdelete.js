@@ -1,9 +1,11 @@
 import React, { useState  } from 'react';
 import { Button,Modal } from 'react-bootstrap';
 
-export function DeleteAlert({show,close}) {
+export function DeleteAlert({show,close,accept}) {
 	//onst [show, setShow] = useState(false);
-  
+	function handleAccept(){
+        accept();
+      }
 	 function handleClose (){
         close();
       }
@@ -21,7 +23,7 @@ console.log(show)
 			<Button variant="secondary" onClick={handleClose}>
 			  Close
 			</Button>
-			<Button variant="primary" onClick={handleClose}>
+			<Button variant="primary" onClick={handleAccept}>
 			  Yes
 			</Button>
 		  </Modal.Footer>

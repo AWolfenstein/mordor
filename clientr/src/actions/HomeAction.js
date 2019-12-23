@@ -29,3 +29,25 @@ export function loadFanfics(){
 			.catch( (e) => console.log(e) );
 	}	
 }
+export function loadCategoryFanfics(category){
+	return dispatch => {
+		return fetch(`http://localhost:3002/home/${category}`, { 
+			method: 'GET', 
+ 			headers: {
+    			'Accept': 'application/json',
+    			'Content-Type': 'application/json'
+  			},
+			mode: 'cors'})
+			.then( (response) => {
+		        if (!response.ok) {
+		            throw Error(response.statusText);
+		        }
+        		return response.json();
+			})
+			.then( ({data}) => {
+				console.log(data)
+				dispatch(fanficsLoaded(data));
+			})		
+			.catch( (e) => console.log(e) );
+	}	
+}

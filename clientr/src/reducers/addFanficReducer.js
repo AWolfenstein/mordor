@@ -1,4 +1,4 @@
-import { FANFIC_CREATED,FANFIC_CA_TAG_LOADED } from '../actions/addFanficActions';
+import { FANFIC_CREATED,FANFIC_CA_TAG_LOADED ,FANFIC_LOADED_TO_EDIT,FANFIC_EDITED} from '../actions/addFanficActions';
 
 var initialState = {
     loggedIn: localStorage.getItem('token') ? true : false,
@@ -21,6 +21,10 @@ export default (state = initialState, action) => {
           updated['categories'] = action.categories;
           updated['tags'] = action.tags;
           return updated;
+          case FANFIC_LOADED_TO_EDIT:
+            return {...state, fanfic: action.payload};
+            case FANFIC_EDITED:
+              return {...state, edited: action.payload};
       default:
         return state;
       }

@@ -7,18 +7,15 @@ const defaultSorted = [{
     dataField: 'id',
     order: 'desc'
   }];
-  const selectRow = {
-    mode: 'radio',
-    clickToSelect: true
-  };
+
  const options = {
     //pageStartIndex: 0,
     sizePerPage: 5,
     hideSizePerPage: true,
     hidePageListOnlyOnePage: true
   };	
-export const Tablebody=({colums,data})=>{
-   console.log(colums)
+export const Tablebody=({colums,data,selectRow})=>{
+ 
   return(
          	
 <ToolkitProvider

@@ -82,7 +82,7 @@ router.post("/:email/addnewfanfic", function(req, res, next) {
               }
 			});
          }
-         console.log(result[0].category);
+        
 		console.log("tag loaded");
 	  } else {
 		res.status(400).json({
@@ -92,6 +92,47 @@ router.post("/:email/addnewfanfic", function(req, res, next) {
 	  }
     });
   });
+ 
+  router.get('/:id/loadtoedit', function(req, res, next){
+	var id = req.params.id;
 
+	addfanficController.loadFanficToEdit(id,function(err, result){
+	
+		if(err){
+			console.log(err);
+			res.status(500).json({
+				success: 0,
+				data: result
+			});
+			return;
+		}
 
+		res.status(200).json({
+			success: 1,
+			data: result
+		});
+	});
+});
+router.post('/:id/updatefanfic', function(req, res, next) {
+	const id = req.params.id;
+
+	addfanficController.updateFanfic(id,req.body.title,req.body.category,req.body.tags ,req.body.description,req.body.fantext, function(err, result){
+		if(err){  
+			console.log(err);
+			res.json({
+				success: 0,
+				error: err
+			})
+			return;
+		}
+
+		console.log('Updated Fanfic');
+
+		res.json({
+			success: 1,
+			data: result
+		});
+	});
+
+});
   module.exports = router;

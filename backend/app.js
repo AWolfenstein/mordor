@@ -4,6 +4,7 @@ const authRoute = require('./routes/auth');
 const addfanficRoute =require('./routes/addfanficRoute');
 const myfanficRoute =require('./routes/myfanficRoute');
 const readRoute=require('./routes/readRoute');
+const adminRoute=require('./routes/adminRoute');
 const homeRoute =require('./routes/homeRoute');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -48,6 +49,16 @@ app.use('/home',homeRoute)
 app.use('/read/:id/newcomment', authCheckMiddleware);
 app.use('/read',readRoute)
 app.use('/myfanfics',myfanficRoute)
+
+app.use('/admin/:id/unadminuser', authCheckMiddleware);
+app.use('/admin/:id/adminuser', authCheckMiddleware);
+app.use('/admin/:id/unbanuser', authCheckMiddleware);
+app.use('/admin/:id/banuser', authCheckMiddleware);
+app.use('/admin/:id/removeuser', authCheckMiddleware);
+app.use('/admin/loadusers', authCheckMiddleware);
+app.use('/admin',adminRoute)
+
+
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);

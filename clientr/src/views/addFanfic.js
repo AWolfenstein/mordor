@@ -9,8 +9,26 @@ import {colourStyles} from  '../stylesheets/colour';
 import SimpleMDEReact from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import store from '../store';
-import {createFanfic ,loadTags} from "../actions/addFanficActions";
+import {createFanfic ,loadTags,loadToEditFanfic,editedFanfic} from "../actions/addFanficActions";
+import enBtns from '../data/enBtns';
+import ruBtns from '../data/rusBtns';
+let  btns=[];
 let colourOptions =[];
+let tagsOptions =[];
+export const filterColors2 = (inputValue) => {
+	return tagsOptions.filter(i =>
+	  i.label.toLowerCase().includes(inputValue.toLowerCase())
+	);
+  };
+  
+  export  const promiseOptions2 = inputValue =>
+	new Promise(resolve => {
+	  setTimeout(() => {
+		resolve(filterColors2(inputValue));
+	  }, 1000);
+	});
+
+
 export const filterColors = (inputValue) => {
 	return colourOptions.filter(i =>
 	  i.label.toLowerCase().includes(inputValue.toLowerCase())
@@ -31,10 +49,11 @@ class AddFanfic extends Component {
 		super();
 		let vm= React.createRef();
 		this.state = {
-			page:'Add Fanfic',
+			page:0,
 			inputValue: '',
 			//colourOptions:[],
 			details:{
+				email:'',
 				title:'',	
 			category: '',
 			tags: [''],
@@ -47,8 +66,7 @@ class AddFanfic extends Component {
 
 	updateDetails(event){
 		let updateDetails = this.state.details;
-       let email= localStorage.getItem('email');
-       updateDetails['email'] = email;
+     
         updateDetails[event.target.id] = event.target.value;
 		this.setState({
 			details: updateDetails   
@@ -62,17 +80,50 @@ class AddFanfic extends Component {
 			details: updateDetails 
 		})
 	  }
-
+	  checkLoginAndAdmin() {
+		const banstatus = localStorage.getItem('banstatus')
+		if  (banstatus === "false" ) {
+		}
+		else{
+			this.props.history.push("/");
+		}
+	  }
 	componentWillMount(){
-		console.log("props",this.props.match)
+		this.checkLoginAndAdmin()
+		let updateDetails = this.state.details;
+       let email= localStorage.getItem('email');
+	   updateDetails['email'] = email;
+	   this.setState({
+		details: updateDetails   
+	});
+
 		if(this.props.match.params.id !== "newfanfic"){
+			store.dispatch(loadToEditFanfic(this.props.match.params.id)).then(()=>{
+				let updateDetails = this.state.details;
+				updateDetails['title']=this.props.fanfictoedit.title; 
+				updateDetails['category']=this.props.fanfictoedit.category; 
+				updateDetails['tags']=this.props.fanfictoedit.tags;
+				updateDetails['description']=this.props.fanfictoedit.description;
+				updateDetails['fantext']=this.props.fanfictoedit.fantext; 
+				console.log(updateDetails)
+				this.setState({
+					details: updateDetails  
+					
+				})	
+			})
+			console.log(this.state.details) 
 			this.setState({
-				page:'Edit Fanfic'
+				page: 1
 			})
 		}
-		store.dispatch(loadTags()).then(()=>{this.props.valuecategories && this.props.valuecategories.map((cat)=>{
+		store.dispatch(loadTags())
+		.then(()=>{this.props.valuecategories && this.props.valuecategories.map((cat)=>{
 			colourOptions.push({value: cat, label: cat} )
 			})
+		})
+		.then(()=>{this.props.valuetags && this.props.valuetags.map((cat)=>{
+				tagsOptions.push({value: cat, label: cat} )
+				})
 		
 	})
 		
@@ -81,6 +132,10 @@ class AddFanfic extends Component {
 	createfanfic(){
 
 		store.dispatch(createFanfic(this.state.details));
+	}
+	udpdatefanfic(){
+
+		store.dispatch(editedFanfic(this.props.match.params.id,this.state.details));
 	}
 
 	
@@ -106,42 +161,45 @@ class AddFanfic extends Component {
 	
 
 	render(){
+		btns= this.props.changedlang === "en" ? enBtns : ruBtns 
 	const {fantext} =this.state.details;
 const body=(
 	<Row>  
         <Col  sm></Col> 
          <Col  sm={10}>
 	<div className="form-group" >
-		<label>Title</label>
-		<input onChange={(event)=>{this.updateDetails(event);}} type="text" className="form-control" placeholder="Enter Title" id="title" />
+<label>{btns.title}</label>
+		<input value={this.state.page=== 1 ?this.state.details.title:''} onChange={(event)=>{this.updateDetails(event);}} type="text" className="form-control" placeholder="Enter Title" id="title" />
 	</div>
 	<div className="form-group">
-		<label>Category</label>
+		<label>{btns.category}:</label>
 		<AsyncSelect
           loadOptions={promiseOptions}
 		  defaultOptions
+		  value={this.state.page=== 1 ?{ value:this.state.details.category,label:this.state.details.category}:''}
 		 onChange={this.handleInputChange}
 		  styles={colourStyles}
         />
 	</div>
 	<div className="form-group" >
-		<label>tags</label>
+		<label>{btns.tags}:</label>
 		<AsyncCreatableSelect
 		isMulti
         cacheOptions
 		defaultOptions
+		value={this.state.page=== 1 ?this.state.details.tags.map((tag)=>{return{ value:tag,label:tag}}):''}
 		onChange={this.handleChange}
-		loadOptions={promiseOptions}
+		loadOptions={promiseOptions2}
 		styles={colourStyles}
       />
  
 	</div>
 	<div className="form-group" >
-		<label>intro</label>
-		<Form.Control onChange={(event)=>{this.updateDetails(event);}} id="description" as="textarea" rows="3" />
+		<label>{btns.description}:</label>
+		<Form.Control value={this.state.page=== 1 ?this.state.details.description:''} onChange={(event)=>{this.updateDetails(event);}} id="description" as="textarea" rows="3" />
 	</div>
 	<div className="form-group"  style={{ width: "100%"}} >
-		<label>Body</label>
+		<label>{btns.text}:</label>
 		<SimpleMDEReact
           className={""}
           value={this.state.details.fantext}
@@ -149,7 +207,7 @@ const body=(
         />
 
 	</div>
-	<button onClick={()=>{this.createfanfic();}}  className="btn btn-primary btn-block">submit</button>
+	<button onClick={()=>{ this.state.page=== 1 ? this.udpdatefanfic() : this.createfanfic()}}  className="btn btn-primary btn-block">{btns.submit}</button>
 	<p></p>
 	</Col>
         <Col  sm></Col>
@@ -160,7 +218,7 @@ const body=(
 		return (
             <Row className="ContentRow"> 
             <Col id="content" sm>
-              <h2>{this.state.page} Page</h2>
+              <h2>{this.state.page=== 1 ? btns.editfanfic : btns.addfanfic} </h2>
               {body}
               
               </Col>
@@ -171,6 +229,7 @@ const body=(
 
 const mapStateToProps = state => {
 	return {
+		fanfictoedit: state.addfanfic.fanfic,
 	valuecategories: state.addfanfic.categories,
 	valuetags: state.addfanfic.tags,
 	changedlang: state.changelanguge.lang

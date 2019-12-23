@@ -22,9 +22,6 @@ const navDropdownUserTitle = ( <span>{username} <Image src={useravatar} style={{
           <NavItem>
           <Nav.Link href="/">{btns.home}</Nav.Link>
           </NavItem>
-          <NavItem >
-          <Nav.Link href="/about">{btns.about}</Nav.Link>
-          </NavItem>
           <NavItem>
           <Nav.Link href="/admin">{btns.price}</Nav.Link>
           </NavItem>
